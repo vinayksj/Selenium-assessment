@@ -1,0 +1,43 @@
+package pomutilities;
+
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
+
+public class OrangeTextPOM {
+WebDriver driver;
+public OrangeTextPOM(WebDriver driver) {
+	this.driver = driver;
+	PageFactory.initElements(driver, this);
+}
+	@FindBy(xpath = "//textarea[@class='oxd-buzz-post-input']")
+	private WebElement news;
+
+	@FindBy(xpath = "//button[text()=' Post ']")
+	private WebElement post;
+	
+	@FindBy(xpath = "//div[@class=\"orangehrm-buzz-newsfeed\"]")
+	private WebElement posts;
+	
+	@FindBy(xpath="(//div[contains(@class,'orangehrm-buzz-post-body')])[1]")
+	private WebElement recent;
+	
+	public void getNews(String value) {
+		news.sendKeys(value);
+	}
+	public void clickPost() {
+		post.click();
+	}
+	public boolean getRecent(String test) {
+		String txt = recent.getText();
+		return txt.equals(test);
+	}
+	public void getPost(String args) {
+		Assert.assertTrue(getRecent(args));
+		 System.out.println("verification done");
+	}
+	
+}	
